@@ -1,0 +1,53 @@
+services:
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database_name
+    ports:
+      - "5432:5432"
+    networks:
+      - backend-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  microservicio-cliente:
+    build: ./microservicio-cliente
+    container_name: microservicio-cliente
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/database_name
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - postgres-db
+    networks:
+      - backend-network
+    volumes:
+      - ./BaseDatos.sql:/BaseDatos.sql
+
+  microservicio-transaccion:
+    build: ./microservicio-transaccion
+    container_name: microservicio-transaccion
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/database_name
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      CLIENTE_SERVICE_URL: http://microservicio-cliente:8080/api/v1/clientes
+    depends_on:
+      - postgres-db
+      - microservicio-cliente
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
