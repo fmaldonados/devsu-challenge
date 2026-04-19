@@ -38,7 +38,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/database_name
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
-      CLIENTE_SERVICE_URL: http://microservicio-cliente:8080/api/v1/clientes
+      CLIENTE_SERVICE_URL: http://microservicio-cliente:8080
     depends_on:
       - postgres-db
       - microservicio-cliente

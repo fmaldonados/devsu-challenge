@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
             HttpStatus.INTERNAL_SERVER_ERROR.value(),
             "Internal Server Error",
             "An unexpected error occurred");
-      // En producción, no deberías enviar el stacktrace en el mensaje
+
       return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
    }
 }

@@ -25,9 +25,9 @@ CREATE TABLE cliente (
 CREATE TABLE cuenta (
     id BIGSERIAL PRIMARY KEY,
     numero_cuenta VARCHAR(50) UNIQUE NOT NULL,
-    tipo VARCHAR(20) NOT NULL, -- AHORRO, CORRIENTE
+    tipo VARCHAR(20) NOT NULL, 
     saldo_inicial DECIMAL(15, 2) NOT NULL,
-    estado VARCHAR(20) NOT NULL, -- ACTIVA, INACTIVA, BLOQUEADA
+    estado VARCHAR(20) NOT NULL, 
     cliente_id BIGINT NOT NULL,
     CONSTRAINT fk_cuenta_cliente FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
 );
@@ -35,7 +35,7 @@ CREATE TABLE cuenta (
 CREATE TABLE movimiento (
     id BIGSERIAL PRIMARY KEY,
     fecha TIMESTAMP NOT NULL,
-    tipo_movimiento VARCHAR(20) NOT NULL, -- DEBITO, CREDITO
+    tipo_movimiento VARCHAR(20) NOT NULL,
     valor DECIMAL(15, 2) NOT NULL,
     saldo_resultante DECIMAL(15, 2) NOT NULL,
     cuenta_id BIGINT NOT NULL,
