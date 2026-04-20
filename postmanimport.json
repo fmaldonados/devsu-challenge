@@ -1,0 +1,121 @@
+{
+  "info": {
+    "_postman_id": "a1---------------------------------",
+    "name": "Ecosistema Microservicios API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Microservicio Cliente API",
+      "item": [
+        {
+          "name": "Crear Cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombre\": \"Juan Pérez\",\n    \"apellido\": \"Pérez\",\n    \"dni\": \"12345678A\",\n    \"email\": \"juan.perez@example.com\",\n    \"telefono\": \"123456789\"\n}"
+            },
+            "url": {
+              "raw": "{{cliente_base_url}}/api/v1/clientes",
+              "host": ["{{cliente_base_url}}"],
+              "path": ["api", "v1", "clientes"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Todos los Clientes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cliente_base_url}}/api/v1/clientes",
+              "host": ["{{cliente_base_url}}"],
+              "path": ["api", "v1", "clientes"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Microservicio Transacciones API",
+      "item": [
+        {
+          "name": "Crear Cuenta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"numeroCuenta\": \"ACC-12345\",\n    \"tipo\": \"AHORRO\",\n    \"saldoInicial\": 1000.0,\n    \"estado\": \"ACTIVO\",\n    \"clienteId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{transaccion_base_url}}/api/v1/cuentas",
+              "host": ["{{transaccion_base_url}}"],
+              "path": ["api", "v1", "cuentas"]
+            }
+          }
+        },
+        {
+          "name": "Crear Movimiento (DEPOSITO)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"tipoMovimiento\": \"DEPOSITO\",\n    \"valor\": 500.0,\n    \"cuentaId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{transaccion_base_url}}/api/v1/movimientos",
+              "host": ["{{transaccion_base_url}}"],
+              "path": ["api", "v1", "movimientos"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Reporte de Movimientos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{transaccion_base_url}}/api/v1/movimientos/reportes?fechaInicial=2023-01-01T00:00:00&fechaFin=2025-12-31T23:59:59&clienteId=1",
+              "host": ["{{transaccion_base_url}}"],
+              "path": ["api", "v1", "movimientos", "reportes"],
+              "query": [
+                { "key": "fechaInicial", "value": "2023-01-01T00:00:00" },
+                { "key": "fechaFin", "value": "2025-12-31T23:59:59" },
+                { "key": "clienteId", "var": "1" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "cliente_base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "transaccion_base_url",
+      "value": "http://localhost:8081",
+      "type": "string"
+    }
+  ]
+}
